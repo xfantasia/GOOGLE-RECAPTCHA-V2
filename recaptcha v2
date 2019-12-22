@@ -1,0 +1,38 @@
+<!--GOOGLE RECAPTCHA-->
+<!--GOOGLE RECAPTCHA PLACE THIS CODE IN THE HEADER SECTION OF THE PAGE-->
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    
+    
+<!--PLACE THIS IN THE FORM WHERE THE CODE RE-CAPTCHA CHECK BOX WILL APPEAR-->
+    <hr>
+    <div class="form-group col-lg-6">
+      <div class="g-recaptcha" data-sitekey="6LcgLMkUAAAAAIulw9Jyb2Z9c3gL7t6sAJ_H1j-p"></div>
+    </div>
+    <hr>
+    
+
+//PHP SERVER SIDE IMPLEMENTATION (This is the php script the grants access for a successful re-captcha)
+    //GOOGLE RECAPTURE V2 (BOTS FILTER)
+		  if(isset($_POST['g-recaptcha-response']) && !empty($_POST['g-recaptcha-response']))
+		  {
+				$secret = '6LcgLMkUAAAAAABJTGdJtkt3aq7o4ATvfXemwjDO';
+				$verifyResponse = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$secret.'&response='.$_POST['g-recaptcha-response']);
+				$responseData = json_decode($verifyResponse);
+				if($responseData->success)
+				{
+					$succMsg = 'Your contact request have submitted successfully.';
+					//echo $succMsg; exit;
+				}
+				else
+				{
+					$errMsg = 'Robot verification failed, please try again.';
+					echo $errMsg;
+					exit;
+				}
+		   }
+		   else{
+				//redirect back to form page
+				redirect("https://www.spreaditglobal.com/#contact");
+				exit;
+		   }
+		//GOOGLE RECAPTURE V2 ENDS
