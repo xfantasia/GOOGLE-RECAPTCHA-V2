@@ -6,7 +6,7 @@
 <!--PLACE THIS IN THE FORM WHERE THE CODE RE-CAPTCHA CHECK BOX WILL APPEAR-->
     <hr>
     <div class="form-group col-lg-6">
-      <div class="g-recaptcha" data-sitekey="6LcgLMkUAAAAAIulw9Jyb2Z9c3gL7t6sAJ_H1j-p"></div>
+      <div class="g-recaptcha" data-sitekey="PUBLIC-KEY-GOES-HERE"></div>
     </div>
     <hr>
     
@@ -15,7 +15,7 @@
     //GOOGLE RECAPTURE V2 (BOTS FILTER)
 		  if(isset($_POST['g-recaptcha-response']) && !empty($_POST['g-recaptcha-response']))
 		  {
-				$secret = '6LcgLMkUAAAAAABJTGdJtkt3aq7o4ATvfXemwjDO';
+				$secret = 'SECRET-KEY-GOES-HERE';
 				$verifyResponse = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$secret.'&response='.$_POST['g-recaptcha-response']);
 				$responseData = json_decode($verifyResponse);
 				if($responseData->success)
